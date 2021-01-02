@@ -1,17 +1,20 @@
 package pl.imsi;
 
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Book {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	private Long book_id;
 	private String title;
 	
 	@ManyToOne
@@ -20,15 +23,18 @@ public class Book {
 	@ManyToOne
 	private Type type;
 	
+	@OneToMany(mappedBy = "book")
+	Set<Mark> marks;
+	
 	public Book() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Long getId() {
-		return id;
+	public Long getBook_id() {
+		return book_id;
 	}
-	public void setId(Long id) {
-		this.id = id;
+	public void setBook_id(Long book_id) {
+		this.book_id = book_id;
 	}
 	public String getTitle() {
 		return title;
