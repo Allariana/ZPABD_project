@@ -36,10 +36,21 @@ public class RunAtStart {
 		author.setLastName("Rowling");
 		author.setFirstName("J.K.");
 		authorRepository.save(author);
+		Author author2 = new Author();
+		author2.setLastName("Hawkins");
+		author2.setFirstName("Paula");
+		authorRepository.save(author2);
+		Author author3 = new Author();
+		author3.setLastName("Michaelides");
+		author3.setFirstName("Alex");
+		authorRepository.save(author3);
 		
 		Type type = new Type();
 		type.setName("Fantasy");
 		typeRepository.save(type);
+		Type type2 = new Type();
+		type2.setName("Thriller");
+		typeRepository.save(type2);
 		
 		Book book = new Book();
 		book.setTitle("Harry Potter i Kamień Filozoficzny");
@@ -51,6 +62,16 @@ public class RunAtStart {
 		book2.setAuthor(author);
 		book2.setType(type);
 		bookRepository.save(book2);
+		Book book3 = new Book();
+		book3.setTitle("Dziewczyna z pociagu");
+		book3.setAuthor(author2);
+		book3.setType(type2);
+		bookRepository.save(book3);
+		Book book4 = new Book();
+		book4.setTitle("Pacjentka");
+		book4.setAuthor(author3);
+		book4.setType(type2);
+		bookRepository.save(book4);
 		
 		Reviewer reviewer = new Reviewer();
 		reviewer.setFirstName("Kinga");
@@ -64,6 +85,12 @@ public class RunAtStart {
 		reviewer2.setEmail("olszewki@gmail.com");
 		reviewer2.setUsername("wolszewski");
 		reviewerRepository.save(reviewer2);
+		Reviewer reviewer3 = new Reviewer();
+		reviewer3.setFirstName("Izabela");
+		reviewer3.setLastName("Pi�czek");
+		reviewer3.setEmail("233994@edu.p.lodz.pl");
+		reviewer3.setUsername("IzabelaPieczek");
+		reviewerRepository.save(reviewer3);
 		
 		Mark mark = new Mark();
 		mark.setValue(4.5);
@@ -89,6 +116,18 @@ public class RunAtStart {
 		mark4.setReviewer(reviewer2);
 		mark4.setBook(book2);
 		markRepository.save(mark4);
+		Mark mark5 = new Mark();
+		mark5.setValue(4.0);
+		mark5.setDate(new java.sql.Date(Calendar.getInstance().getTime().getTime()));
+		mark5.setReviewer(reviewer3);
+		mark5.setBook(book3);
+		markRepository.save(mark5);
+		Mark mark6 = new Mark();
+		mark6.setValue(5.0);
+		mark6.setDate(new java.sql.Date(Calendar.getInstance().getTime().getTime()));
+		mark6.setReviewer(reviewer3);
+		mark6.setBook(book4);
+		markRepository.save(mark6);
 	}
 	
 	
