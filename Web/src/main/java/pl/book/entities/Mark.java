@@ -10,8 +10,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 @Entity
 public class Mark {
 	
@@ -21,12 +19,10 @@ public class Mark {
 	private Double value;
     private Date date;
     
-    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "reviewer_id")
     private Reviewer reviewer;
     
-    @JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "book_id")
 	private Book book;

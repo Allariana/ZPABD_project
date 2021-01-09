@@ -9,9 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 @Entity
 public class Book {
 
@@ -20,15 +17,12 @@ public class Book {
 	private Long book_id;
 	private String title;
 	
-	@JsonBackReference
 	@ManyToOne
 	private Author author;
 	
-	@JsonBackReference
 	@ManyToOne
 	private Type type;
 	
-	@JsonManagedReference
 	@OneToMany(mappedBy = "book")
 	Set<Mark> marks;
 	
