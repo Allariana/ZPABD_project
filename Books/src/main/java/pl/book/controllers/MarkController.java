@@ -39,5 +39,4 @@ public class MarkController {
       model.addObject("marks", marks);
       return model;
   }
-  
 }
