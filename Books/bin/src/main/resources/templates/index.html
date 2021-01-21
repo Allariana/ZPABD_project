@@ -18,26 +18,19 @@
 
 			<table class="table">
 				<thead>
-					<tr>	
-						<th>Id</th>						
+					<tr>						
 						<th>Tytuł</th>		
 						<th>Autor</th>	
 						<th>Gatunek</th>		
 					</tr>
 				</thead>
-				<tbody class = "tableClass">
+				<tbody>
         <tr th:each="book: ${books}">
-        <td id = "bookId" th:text="${book.book_id}"> id </td>
         <td th:text="${book.title}"> title </td>
         <td th:text="${book.author.LastName}"> author </td>
         <td th:text="${book.type.name}"> gatunek </td>
-        <td>
-        	<a th:href="'http://localhost:8080/marks?bookId='+${book.book_id}">Ocena</a>
-       	</td>
         </tr>
         </tbody>
 			</table>
-			
-
 </body>
 </html>
