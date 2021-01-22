@@ -11,33 +11,28 @@
 	integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
 	crossorigin="anonymous">
 <meta charset="utf-8">
-<title>Books</title>
+<title>Reviewer</title>
 </head>
 <body>
-	<h1>Ranking</h1>
-
 			<table class="table">
 				<thead>
-					<tr>	
-						<th>Id</th>						
-						<th>Tytuł</th>		
-						<th>Autor</th>	
-						<th>Gatunek</th>		
+					<tr>						
+						<th>Id</th>		
+						<th>Imię</th>
+						<th>Nazwisko</th>	
+						<th>Nazwa użytkownika</th>		
+						<th>Email</th>	
 					</tr>
 				</thead>
-				<tbody class = "tableClass">
-        <tr th:each="book: ${books}">
-        <td id = "bookId" th:text="${book.book_id}"> id </td>
-        <td th:text="${book.title}"> title </td>
-        <td th:text="${book.author.LastName}"> author </td>
-        <td th:text="${book.type.name}"> gatunek </td>
-        <td>
-        	<a th:href="'http://localhost:8080/marks?bookId='+${book.book_id}">Ocena</a>
-       	</td>
+				<tbody>
+        <tr th:each="reviewer: ${reviewers}">
+        <td th:text="${reviewer.reviewer_id}"> Id </td>
+        <td th:text="${reviewer.FirstName}"> Imię </td>
+        <td th:text="${reviewer.LastName}"> Nazwisko </td>
+        <td th:text="${reviewer.username}"> Nazwa użytkownika </td>
+         <td th:text="${reviewer.email}"> Email </td>
         </tr>
         </tbody>
 			</table>
-			
-
 </body>
 </html>
