@@ -33,11 +33,12 @@ INSERT INTO users (username, password, enabled)
 INSERT INTO users (username, password, enabled)
   values ('admin','$2a$10$7bsgPDdxJeMMu764jAgPHebxLznEPOUk8bkUeeGtxG/zphwwZMbsu', 1); --password
   
-INSERT INTO authorities (username, authority) values ('Allariana', 'USER');
-INSERT INTO authorities (username, authority) values ('IzabelaPieczek', 'USER');
-INSERT INTO authorities (username, authority) values ('wjurek', 'USER');
-INSERT INTO authorities (username, authority) values ('admin', 'ADMIN');
+INSERT INTO authorities (username, authority) values ('Allariana', 'ROLE_USER');
+INSERT INTO authorities (username, authority) values ('IzabelaPieczek', 'ROLE_USER');
+INSERT INTO authorities (username, authority) values ('wjurek', 'ROLE_USER');
+INSERT INTO authorities (username, authority) values ('admin', 'ROLE_ADMIN');
 
 select * from dbo.users
 select * from dbo.authorities
+
 
