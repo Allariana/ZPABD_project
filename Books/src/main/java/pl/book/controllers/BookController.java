@@ -28,7 +28,7 @@ public class BookController {
 		return bookManager.findAll();
 	}
 
-  @RequestMapping(value = "/index", method = RequestMethod.GET)
+  @RequestMapping(value = "/", method = RequestMethod.GET)
   public ModelAndView subjects(HttpServletRequest request){
       Iterable<Book> books = bookManager.findAll();
       ModelAndView model = new ModelAndView("/index.html");

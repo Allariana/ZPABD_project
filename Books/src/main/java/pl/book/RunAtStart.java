@@ -91,10 +91,10 @@ public class RunAtStart {
 		reviewer.setUsername("Allariana");
 		reviewerRepository.save(reviewer);
 		Reviewer reviewer2 = new Reviewer();
-		reviewer2.setFirstName("Wiktor");
-		reviewer2.setLastName("Olszewski");
-		reviewer2.setEmail("olszewki@gmail.com");
-		reviewer2.setUsername("wolszewski");
+		reviewer2.setFirstName("Wojciech");
+		reviewer2.setLastName("Jurek");
+		reviewer2.setEmail("208911@edu.p.lodz.pl");
+		reviewer2.setUsername("wjurek");
 		reviewerRepository.save(reviewer2);
 		Reviewer reviewer3 = new Reviewer();
 		reviewer3.setFirstName("Izabela");
