@@ -41,10 +41,10 @@ public class ReviewerController {
       return model;
   }
   
-  @RequestMapping(value = "/allReviewers", method = RequestMethod.GET)
+  @RequestMapping(value = "/admin/allReviewers", method = RequestMethod.GET)
   public ModelAndView subjectsAll(HttpServletRequest request){
       Iterable<Reviewer> reviewers = reviewerManager.findAll();
-      ModelAndView model = new ModelAndView("/allReviewers.html");
+      ModelAndView model = new ModelAndView("/admin/allReviewers.html");
       model.addObject("reviewers", reviewers);
       return model;
   }
