@@ -34,7 +34,7 @@ public class ReviewerController {
 	}
 
   @RequestMapping(value = "/reviewer", method = RequestMethod.GET)
-  public ModelAndView subjects(HttpServletRequest request){
+  public ModelAndView reviewer(HttpServletRequest request){
       Iterable<Reviewer> reviewer = reviewerManager.findAllWhereId(Long.valueOf(request.getParameter("reviewerId")));
       ModelAndView model = new ModelAndView("/reviewer.html");
       model.addObject("reviewers", reviewer);
@@ -42,10 +42,12 @@ public class ReviewerController {
   }
   
   @RequestMapping(value = "/admin/allReviewers", method = RequestMethod.GET)
-  public ModelAndView subjectsAll(HttpServletRequest request){
+  public ModelAndView allReviewers(HttpServletRequest request){
       Iterable<Reviewer> reviewers = reviewerManager.findAll();
       ModelAndView model = new ModelAndView("/admin/allReviewers.html");
       model.addObject("reviewers", reviewers);
       return model;
   }
+
+  
 }
