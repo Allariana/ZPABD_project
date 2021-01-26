@@ -16,41 +16,41 @@
 </head>
 <body>
 <div th:replace="fragments/header.html :: header"/>
+<div class="container bg-light text-dark p-4 ">
 	<h1>Ranking</h1>
 	
-	<table class="table">
-	<tbody class = "tableClass">
-	<tr>
-	<td><a href="http://localhost:8080/allAuthors">Autorzy</a></td>
-	<td><a href="http://localhost:8080/admin/allReviewers">Oceniający</a></td>
-	<td><a href="http://localhost:8080/allTypes">Gatunki</a></td>
-	</tr>
-
-</tbody>
-</table>
-
 			<table class="table">
 				<thead>
-					<tr>	
-						<th>Id</th>						
+					<tr>					
 						<th>Tytuł</th>		
 						<th>Autor</th>	
-						<th>Gatunek</th>		
+						<th>Gatunek</th>	
+						<th>Średnia ocena</th>		
 					</tr>
 				</thead>
 				<tbody class = "tableClass">
         <tr th:each="book: ${books}">
-        <td id = "bookId" th:text="${book.book_id}"> id </td>
         <td th:text="${book.title}"> title </td>
         <td th:text="${book.author.LastName}"> author </td>
         <td th:text="${book.type.name}"> gatunek </td>
+        <td> średnia </td>
         <td>
-        	<a th:href="'http://localhost:8080/marks?bookId='+${book.book_id}">Ocena</a>
+        	<a th:href="'http://localhost:8080/marks?bookId='+${book.book_id}">Wszystkie oceny</a>
+       	</td>
+       	<td>
+        	<a th:href="'http://localhost:8080/reviewer/addmark?bookId='+${book.book_id}">Oceń</a>
        	</td>
         </tr>
         </tbody>
 			</table>
-			
+				<table class="table">
+	<tbody class = "tableClass">
+	<tr>
+	<td><a href="http://localhost:8080/admin/allReviewers">Oceniający</a></td>
+	</tr>
 
+</tbody>
+</table>
+</div>
 </body>
 </html>

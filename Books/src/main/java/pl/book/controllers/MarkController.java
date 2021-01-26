@@ -33,9 +33,16 @@ public class MarkController {
 	}
 
   @RequestMapping(value = "/marks", method = RequestMethod.GET)
-  public ModelAndView subjects(HttpServletRequest request){
+  public ModelAndView marks(HttpServletRequest request){
       Iterable<Mark> marks = markManager.findAllWhereBookId(Long.valueOf(request.getParameter("bookId")));
       ModelAndView model = new ModelAndView("/marks.html");
+      model.addObject("marks", marks);
+      return model;
+  }
+  @RequestMapping(value = "/reviewer/addmark", method = RequestMethod.GET)
+  public ModelAndView addMarks(HttpServletRequest request){
+      Iterable<Mark> marks = markManager.findAllWhereBookId(Long.valueOf(request.getParameter("bookId")));
+      ModelAndView model = new ModelAndView("/reviewer/addmark.html");
       model.addObject("marks", marks);
       return model;
   }

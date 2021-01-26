@@ -12,8 +12,11 @@
 	crossorigin="anonymous">
 <meta charset="utf-8">
 <title>Reviewers</title>
+<div th:replace="fragments/header.html :: header-css"/>
 </head>
 <body>
+<div th:replace="fragments/header.html :: header"/>
+<div class="container bg-light text-dark p-4">
 			<table class="table">
 				<thead>
 					<tr>						
@@ -34,5 +37,6 @@
         </tr>
         </tbody>
 			</table>
+</div>
 </body>
 </html>

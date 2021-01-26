@@ -28,6 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
     	http.csrf().disable().authorizeRequests()
     			.antMatchers("/admin/allReviewers").access("hasRole('ADMIN')")
+    			.antMatchers("/reviewer/addMark").access("hasRole('USER')")
         		.and()
         		.formLogin().permitAll()
         		.and()

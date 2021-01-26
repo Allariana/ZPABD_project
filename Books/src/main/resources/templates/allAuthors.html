@@ -12,23 +12,25 @@
 	crossorigin="anonymous">
 <meta charset="utf-8">
 <title>Autorzy</title>
+<div th:replace="fragments/header.html :: header-css"/>
 </head>
 <body>
+<div th:replace="fragments/header.html :: header"/>
+<div class="container bg-light text-dark p-4">
 			<table class="table">
 				<thead>
 					<tr>						
-						<th>Id</th>		
 						<th>Imię</th>	
 						<th>Nazwisko</th>		
 					</tr>
 				</thead>
 				<tbody>
         <tr th:each="author: ${authors}">
-        <td th:text="${author.id}"> Id </td>
         <td th:text="${author.FirstName}"> Imię </td>
         <td th:text="${author.LastName}"> Nazwisko </td>
         </tr>
         </tbody>
 			</table>
+</div>
 </body>
 </html>

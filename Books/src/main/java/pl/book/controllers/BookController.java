@@ -1,5 +1,11 @@
 package pl.book.controllers;
 
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,5 +41,6 @@ public class BookController {
       model.addObject("books", books);
       return model;
   }
+
 
 }
