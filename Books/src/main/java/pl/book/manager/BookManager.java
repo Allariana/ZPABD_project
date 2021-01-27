@@ -21,6 +21,10 @@ public class BookManager {
         return bookRepository.findAll();
     }
     
+    public Double findAverageMark(Long book_id) {
+        return bookRepository.findAverageMark(book_id);
+    }
+    
     public Iterable<Book> findAllWhereId(Long bookId) {
     	System.out.println("idik_ksiazki " + bookId);
         return bookRepository.findAllWhereId(bookId);

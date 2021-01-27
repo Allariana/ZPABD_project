@@ -33,7 +33,7 @@
         <td th:text="${book.title}"> title </td>
         <td th:text="${book.author.LastName}"> author </td>
         <td th:text="${book.type.name}"> gatunek </td>
-        <td> średnia </td>
+         <td th:text="${book.averageMark}"> średnia </td>
         <td>
         	<a th:href="'http://localhost:8080/marks?bookId='+${book.book_id}">Wszystkie oceny</a>
        	</td>
