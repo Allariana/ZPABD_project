@@ -1,6 +1,7 @@
 package pl.book.controllers;
 
 import java.util.Calendar;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,8 +15,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import pl.book.entities.Book;
 import pl.book.entities.Mark;
+import pl.book.entities.Reviewer;
 import pl.book.manager.BookManager;
 import pl.book.manager.MarkManager;
+import pl.book.manager.ReviewerManager;
 import pl.book.repositories.BookRepository;
 import pl.book.repositories.MarkRepository;
 
@@ -28,13 +31,16 @@ public class MarkController {
 	private MarkRepository markRepository;
 	@Autowired
 	private BookManager bookManager;
+	@Autowired
+	private ReviewerManager reviewerManager;
 
 	@Autowired
-	public MarkController(MarkManager markManager, MarkRepository markRepository) {
+	public MarkController(MarkManager markManager, MarkRepository markRepository, ReviewerManager reviewerManager) {
 		super();
 		this.markManager = markManager;
 		this.markRepository = markRepository;
 		this.bookManager = bookManager;
+		this.reviewerManager = reviewerManager;
 	}
 
 	@GetMapping("/allmarks")
@@ -63,7 +69,9 @@ public class MarkController {
 	public void addMarkConfirm(HttpServletRequest request) {
 		String bookid = request.getParameter("bookId");
 		Double value = Double.parseDouble(request.getParameter("value"));
+		String username = request.getRemoteUser();
 		
+		System.out.println("Username " + username);
 		System.out.println("Debugowanie_Id_ksiazki " + bookid);
 		System.out.println("Debugowanie_value_ksiazki " + value);
 
@@ -78,7 +86,8 @@ public class MarkController {
 			System.out.println("DEBUG_PRZED " + markbefore.getValue());
 			System.out.println("DEBUG_PRZED " + markbefore.getBook());
 		}
-			
+		Reviewer reviewer = reviewerManager.findByUsername(username);
+		mark.setReviewer(reviewer);
 		Iterable<Book> books = bookManager.findAllWhereId(Long.valueOf(bookid));
 		while(books.iterator().hasNext()) {
 			mark.setBook(books.iterator().next());

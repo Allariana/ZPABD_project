@@ -26,6 +26,9 @@ public class ReviewerManager {
 	public Optional<Reviewer> findById(Long id) {
 		return reviewerRepository.findById(id);
 	}
+	public Reviewer findByUsername(String username) {
+		return reviewerRepository.findByUsername(username);
+	}
 	
     public Iterable<Reviewer> findAllWhereId(Long bookId) {
         return reviewerRepository.findAllWhereId(bookId);

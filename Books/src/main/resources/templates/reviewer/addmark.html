@@ -17,7 +17,7 @@
 <body>
 <div th:replace="fragments/header.html :: header"/>
 <div class="container bg-light text-dark p-4">
-<h2>Wystaw ocenę</h2>
+<h2>[[${#httpServletRequest.remoteUser}]], wystaw ocenę</h2>
 
 <script>
 window.onload = function(){
@@ -26,9 +26,7 @@ window.onload = function(){
 	const urlParams = new URLSearchParams(queryString);
 	const bookId = urlParams.get('bookId')
 	console.log(bookId);
-	
-
-
+	const u = toString("[[${#httpServletRequest.remoteUser}]]");
     document.getElementById('bookIdinput').value = bookId;
 };
 </script>
