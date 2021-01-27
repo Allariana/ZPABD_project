@@ -40,16 +40,6 @@ public class BookController {
 	public Iterable<Book> getAll(){
 		return bookManager.findAll();
 	}
-	@RequestMapping(value = "/", method = RequestMethod.POST)
-	public void setAverage(HttpServletRequest request) {
-		
-		for(Book book: bookManager.findAll()) {
-			Double averageMark = bookManager.findAverageMark(book.getBook_id());
-			book.setAverageMark(averageMark);
-			bookRepository.save(book);
-		}
-
-	}
 
   @RequestMapping(value = "/", method = RequestMethod.GET)
   public ModelAndView subjects(HttpServletRequest request){

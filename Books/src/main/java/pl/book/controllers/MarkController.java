@@ -30,17 +30,21 @@ public class MarkController {
 	@Autowired
 	private MarkRepository markRepository;
 	@Autowired
+	private BookRepository bookRepository;
+	@Autowired
 	private BookManager bookManager;
 	@Autowired
 	private ReviewerManager reviewerManager;
 
 	@Autowired
-	public MarkController(MarkManager markManager, MarkRepository markRepository, ReviewerManager reviewerManager) {
+	public MarkController(MarkManager markManager, MarkRepository markRepository, ReviewerManager reviewerManager,
+			BookRepository bookRepository) {
 		super();
 		this.markManager = markManager;
 		this.markRepository = markRepository;
 		this.bookManager = bookManager;
 		this.reviewerManager = reviewerManager;
+		this.bookRepository = bookRepository;
 	}
 
 	@GetMapping("/allmarks")
@@ -58,10 +62,7 @@ public class MarkController {
 
 	@RequestMapping(value = "/reviewer/addmark", method = RequestMethod.GET)
 	public ModelAndView addMarks(HttpServletRequest request) {
-		// Iterable<Mark> marks =
-		// markManager.findAllWhereBookId(Long.valueOf(request.getParameter("bookId")));
 		ModelAndView model = new ModelAndView("/reviewer/addmark.html");
-		// model.addObject("marks", marks);
 		return model;
 	}
 
@@ -71,33 +72,19 @@ public class MarkController {
 		Double value = Double.parseDouble(request.getParameter("value"));
 		String username = request.getRemoteUser();
 
-		System.out.println("Username " + username);
-		System.out.println("Debugowanie_Id_ksiazki " + bookid);
-		System.out.println("Debugowanie_value_ksiazki " + value);
-
 		Mark mark = new Mark();
 		mark.setValue(value);
 		mark.setDate(new java.sql.Date(Calendar.getInstance().getTime().getTime()));
 
-		System.out.println("Debugowanie_oceny_xd " + mark);
-		for (Mark markbefore : markManager.findAll()) {
-			System.out.println("DEBUG_PRZED " + markbefore.getValue());
-			System.out.println("DEBUG_PRZED " + markbefore.getBook());
-		}
 		Reviewer reviewer = reviewerManager.findByUsername(username);
 		mark.setReviewer(reviewer);
-		Iterable<Book> books = bookManager.findAllWhereId(Long.valueOf(bookid));
-		while (books.iterator().hasNext()) {
-			mark.setBook(books.iterator().next());
-			break;
-		}
+		Book book = bookManager.findBookById(Long.valueOf(bookid));
+		mark.setBook(book);
 
 		markRepository.save(mark);
-
-		for (Mark markafter : markManager.findAll()) {
-			System.out.println("DEBUG_PO " + markafter.getValue());
-			System.out.println("DEBUG_PO " + markafter.getBook());
-		}
+		Double averageMark = bookManager.findAverageMark(Long.valueOf(bookid));
+		book.setAverageMark(averageMark);
+		bookRepository.save(book);
 
 	}
 }

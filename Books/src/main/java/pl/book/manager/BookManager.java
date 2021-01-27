@@ -1,5 +1,7 @@
 package pl.book.manager;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,10 +27,11 @@ public class BookManager {
         return bookRepository.findAverageMark(book_id);
     }
     
-    public Iterable<Book> findAllWhereId(Long bookId) {
+    public Book findBookById(Long bookId) {
     	System.out.println("idik_ksiazki " + bookId);
-        return bookRepository.findAllWhereId(bookId);
+        return bookRepository.findBookById(bookId);
     }
+
 
 
 }
