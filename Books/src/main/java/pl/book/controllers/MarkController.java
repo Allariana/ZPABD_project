@@ -16,6 +16,7 @@ import pl.book.entities.Book;
 import pl.book.entities.Mark;
 import pl.book.manager.BookManager;
 import pl.book.manager.MarkManager;
+import pl.book.repositories.BookRepository;
 import pl.book.repositories.MarkRepository;
 
 @Controller
@@ -25,12 +26,15 @@ public class MarkController {
 	private MarkManager markManager;
 	@Autowired
 	private MarkRepository markRepository;
+	@Autowired
+	private BookManager bookManager;
 
 	@Autowired
 	public MarkController(MarkManager markManager, MarkRepository markRepository) {
 		super();
 		this.markManager = markManager;
 		this.markRepository = markRepository;
+		this.bookManager = bookManager;
 	}
 
 	@GetMapping("/allmarks")
@@ -56,20 +60,44 @@ public class MarkController {
 	}
 
 	@RequestMapping(value = "/reviewer/addmark", method = RequestMethod.POST)
-	public ModelAndView addMarkConfirm(HttpServletRequest request) {
+	public void addMarkConfirm(HttpServletRequest request) {
 		String bookid = request.getParameter("bookId");
-		String value = request.getParameter("value");
+		Double value = Double.parseDouble(request.getParameter("value"));
+		
+		System.out.println("Debugowanie_Id_ksiazki " + bookid);
+		System.out.println("Debugowanie_value_ksiazki " + value);
 
 		// pobrac z manager
 
 		Mark mark = new Mark();
-		mark.setValue(4.5);
+		mark.setValue(value);
 		mark.setDate(new java.sql.Date(Calendar.getInstance().getTime().getTime()));
-//		mark.setReviewer();
-//		mark.setBook();
+		
+		System.out.println("Debugowanie_oceny_xd " + mark);
+		for(Mark markbefore : markManager.findAll()) {
+			System.out.println("DEBUG_PRZED " + markbefore.getValue());
+			System.out.println("DEBUG_PRZED " + markbefore.getBook());
+		}
+			
+		Iterable<Book> books = bookManager.findAllWhereId(Long.valueOf(bookid));
+		while(books.iterator().hasNext()) {
+			mark.setBook(books.iterator().next());
+			break;
+		}
+
+		
 
 		markRepository.save(mark);
+		
+		for(Mark markafter : markManager.findAll()) {
+			System.out.println("DEBUG_PO " + markafter.getValue());
+			System.out.println("DEBUG_PO " + markafter.getBook());
+		}
+		
+		
+//		mark.setReviewer();
 
-		return this.marks(request);
+
+		//return this.marks(request);
 	}
 }
