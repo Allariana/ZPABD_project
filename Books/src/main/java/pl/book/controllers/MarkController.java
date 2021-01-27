@@ -70,43 +70,34 @@ public class MarkController {
 		String bookid = request.getParameter("bookId");
 		Double value = Double.parseDouble(request.getParameter("value"));
 		String username = request.getRemoteUser();
-		
+
 		System.out.println("Username " + username);
 		System.out.println("Debugowanie_Id_ksiazki " + bookid);
 		System.out.println("Debugowanie_value_ksiazki " + value);
 
-		// pobrac z manager
-
 		Mark mark = new Mark();
 		mark.setValue(value);
 		mark.setDate(new java.sql.Date(Calendar.getInstance().getTime().getTime()));
-		
+
 		System.out.println("Debugowanie_oceny_xd " + mark);
-		for(Mark markbefore : markManager.findAll()) {
+		for (Mark markbefore : markManager.findAll()) {
 			System.out.println("DEBUG_PRZED " + markbefore.getValue());
 			System.out.println("DEBUG_PRZED " + markbefore.getBook());
 		}
 		Reviewer reviewer = reviewerManager.findByUsername(username);
 		mark.setReviewer(reviewer);
 		Iterable<Book> books = bookManager.findAllWhereId(Long.valueOf(bookid));
-		while(books.iterator().hasNext()) {
+		while (books.iterator().hasNext()) {
 			mark.setBook(books.iterator().next());
 			break;
 		}
 
-		
-
 		markRepository.save(mark);
-		
-		for(Mark markafter : markManager.findAll()) {
+
+		for (Mark markafter : markManager.findAll()) {
 			System.out.println("DEBUG_PO " + markafter.getValue());
 			System.out.println("DEBUG_PO " + markafter.getBook());
 		}
-		
-		
-//		mark.setReviewer();
 
-
-		//return this.marks(request);
 	}
 }
