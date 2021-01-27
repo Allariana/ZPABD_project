@@ -1,5 +1,6 @@
 package pl.book.entities;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -8,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
+import org.springframework.data.jpa.repository.Query;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -32,6 +35,7 @@ public class Book {
 	@OneToMany(mappedBy = "book")
 	Set<Mark> marks;
 	
+
 	public Book() {
 		super();
 		// TODO Auto-generated constructor stub

@@ -11,7 +11,7 @@
 	integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
 	crossorigin="anonymous">
 <meta charset="utf-8">
-<title>Autorzy</title>
+<title>Reviewers</title>
 <div th:replace="fragments/header.html :: header-css"/>
 </head>
 <body>
@@ -20,14 +20,20 @@
 			<table class="table">
 				<thead>
 					<tr>						
-						<th>Imię</th>	
-						<th>Nazwisko</th>		
+						<th>Id</th>		
+						<th>Imię</th>
+						<th>Nazwisko</th>	
+						<th>Nazwa użytkownika</th>		
+						<th>Email</th>	
 					</tr>
 				</thead>
 				<tbody>
-        <tr th:each="author: ${authors}">
-        <td th:text="${author.FirstName}"> Imię </td>
-        <td th:text="${author.LastName}"> Nazwisko </td>
+        <tr th:each="reviewer: ${reviewers}">
+        <td th:text="${reviewer.reviewer_id}"> Id </td>
+        <td th:text="${reviewer.FirstName}"> Imię </td>
+        <td th:text="${reviewer.LastName}"> Nazwisko </td>
+        <td th:text="${reviewer.username}"> Nazwa użytkownika </td>
+         <td th:text="${reviewer.email}"> Email </td>
         </tr>
         </tbody>
 			</table>

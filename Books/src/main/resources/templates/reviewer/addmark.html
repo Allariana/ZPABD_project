@@ -11,26 +11,30 @@
 	integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
 	crossorigin="anonymous">
 <meta charset="utf-8">
-<title>Autorzy</title>
+<title>add mark</title>
 <div th:replace="fragments/header.html :: header-css"/>
 </head>
 <body>
 <div th:replace="fragments/header.html :: header"/>
 <div class="container bg-light text-dark p-4">
-			<table class="table">
-				<thead>
-					<tr>						
-						<th>Imię</th>	
-						<th>Nazwisko</th>		
-					</tr>
-				</thead>
-				<tbody>
-        <tr th:each="author: ${authors}">
-        <td th:text="${author.FirstName}"> Imię </td>
-        <td th:text="${author.LastName}"> Nazwisko </td>
-        </tr>
-        </tbody>
-			</table>
+<h2>Wystaw ocenę</h2>		
+<br>
+    <form action="/reviewer/addmark" id = "mark-inform" method="POST">
+        <div class="row">
+            <div class="col">
+                <label> Value </label>
+            </div>
+            <div class="col">
+                <input type="number" name="value" min="0" max="5" step="0.5">
+            </div>
+        </div>
+        <br>
+        <div class="vertical-center">
+            <input type ="submit" class="btn btn-primary" value="ADD">
+            <a href="/" class="btn btn-info"> CANCEL </a>
+        </div>
+    </form>
+
 </div>
 </body>
 </html>

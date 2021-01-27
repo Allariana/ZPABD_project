@@ -1,5 +1,11 @@
 package pl.book.controllers;
 
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,12 +34,13 @@ public class BookController {
 		return bookManager.findAll();
 	}
 
-  @RequestMapping(value = "/index", method = RequestMethod.GET)
+  @RequestMapping(value = "/", method = RequestMethod.GET)
   public ModelAndView subjects(HttpServletRequest request){
       Iterable<Book> books = bookManager.findAll();
       ModelAndView model = new ModelAndView("/index.html");
       model.addObject("books", books);
       return model;
   }
+
 
 }

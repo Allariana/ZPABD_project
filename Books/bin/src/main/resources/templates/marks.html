@@ -11,26 +11,29 @@
 	integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
 	crossorigin="anonymous">
 <meta charset="utf-8">
-<title>Autorzy</title>
-<div th:replace="fragments/header.html :: header-css"/>
+<title>Marks</title>
 </head>
 <body>
-<div th:replace="fragments/header.html :: header"/>
-<div class="container bg-light text-dark p-4">
 			<table class="table">
 				<thead>
 					<tr>						
-						<th>Imię</th>	
-						<th>Nazwisko</th>		
+						<th>Tytuł</th>		
+						<th>Oceniający</th>	
+						<th>Data</th>		
+						<th>ocena</th>	
 					</tr>
 				</thead>
 				<tbody>
-        <tr th:each="author: ${authors}">
-        <td th:text="${author.FirstName}"> Imię </td>
-        <td th:text="${author.LastName}"> Nazwisko </td>
+        <tr th:each="mark: ${marks}">
+        <td th:text="${mark.book.title}"> title </td>
+        <td th:text="${mark.reviewer.LastName}"> reviewer </td>
+        <td th:text="${mark.date}"> date </td>
+        <td th:text="${mark.value}"> rating </td>
+        <td>
+        	<a th:href="'http://localhost:8080/reviewer?reviewerId='+${mark.reviewer.reviewer_id}">Oceniający</a>
+       	</td>
         </tr>
         </tbody>
 			</table>
-</div>
 </body>
 </html>

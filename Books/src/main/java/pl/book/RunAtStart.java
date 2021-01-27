@@ -4,8 +4,11 @@ package pl.book;
 import java.util.Calendar;
 
 import javax.annotation.PostConstruct;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Component;
 
 import pl.book.entities.Author;
@@ -28,6 +31,7 @@ public class RunAtStart {
 	private final TypeRepository typeRepository;
 	private final MarkRepository markRepository;
 	private final ReviewerRepository reviewerRepository;
+	
 
 	@Autowired
 	public RunAtStart(BookRepository bookRepository, AuthorRepository authorRepository, TypeRepository typeRepository
@@ -43,6 +47,7 @@ public class RunAtStart {
 
 	@PostConstruct
 	public void runAtStart() {
+		
 		Author author = new Author();
 		author.setLastName("Rowling");
 		author.setFirstName("J.K.");
@@ -91,10 +96,10 @@ public class RunAtStart {
 		reviewer.setUsername("Allariana");
 		reviewerRepository.save(reviewer);
 		Reviewer reviewer2 = new Reviewer();
-		reviewer2.setFirstName("Wiktor");
-		reviewer2.setLastName("Olszewski");
-		reviewer2.setEmail("olszewki@gmail.com");
-		reviewer2.setUsername("wolszewski");
+		reviewer2.setFirstName("Wojciech");
+		reviewer2.setLastName("Jurek");
+		reviewer2.setEmail("208911@edu.p.lodz.pl");
+		reviewer2.setUsername("wjurek");
 		reviewerRepository.save(reviewer2);
 		Reviewer reviewer3 = new Reviewer();
 		reviewer3.setFirstName("Izabela");
@@ -139,6 +144,7 @@ public class RunAtStart {
 		mark6.setReviewer(reviewer3);
 		mark6.setBook(book4);
 		markRepository.save(mark6);
+		
 	}
 	
 	
