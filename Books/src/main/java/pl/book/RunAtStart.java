@@ -15,6 +15,7 @@ import pl.book.entities.Author;
 import pl.book.entities.Book;
 import pl.book.entities.Mark;
 import pl.book.entities.Type;
+import pl.book.manager.BookManager;
 import pl.book.entities.Reviewer;
 import pl.book.repositories.AuthorRepository;
 import pl.book.repositories.BookRepository;
@@ -31,17 +32,19 @@ public class RunAtStart {
 	private final TypeRepository typeRepository;
 	private final MarkRepository markRepository;
 	private final ReviewerRepository reviewerRepository;
+	private final BookManager bookManager;
 	
 
 	@Autowired
 	public RunAtStart(BookRepository bookRepository, AuthorRepository authorRepository, TypeRepository typeRepository
-			,MarkRepository markRepository,ReviewerRepository reviewerRepository) {
+			,MarkRepository markRepository,ReviewerRepository reviewerRepository, BookManager bookManager) {
 		super();
 		this.bookRepository = bookRepository;
 		this.authorRepository = authorRepository;
 		this.typeRepository = typeRepository;
 		this.markRepository	= markRepository;
 		this.reviewerRepository = reviewerRepository;
+		this.bookManager = bookManager;
 
 	}
 
@@ -144,6 +147,12 @@ public class RunAtStart {
 		mark6.setReviewer(reviewer3);
 		mark6.setBook(book4);
 		markRepository.save(mark6);
+		
+		for(Book books: bookManager.findAll()) {
+			Double averageMark = bookManager.findAverageMark(books.getBook_id());
+			books.setAverageMark(averageMark);
+			bookRepository.save(books);
+		}
 		
 	}
 	

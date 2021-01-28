@@ -35,7 +35,15 @@ public class Book {
 	@OneToMany(mappedBy = "book")
 	Set<Mark> marks;
 	
+	private Double averageMark;
+	
 
+	public Double getAverageMark() {
+		return averageMark;
+	}
+	public void setAverageMark(Double averageMark) {
+		this.averageMark = averageMark;
+	}
 	public Book() {
 		super();
 		// TODO Auto-generated constructor stub
