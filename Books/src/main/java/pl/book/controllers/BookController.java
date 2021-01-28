@@ -52,6 +52,7 @@ public class BookController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView subjects(HttpServletRequest request) {
+    	Reviewer currentUserReviewer = null;
         Iterable<Book> books = bookManager.findAll();
         Iterable<Mark> marks = null;
         List<Long> markedBooksIdsList = new ArrayList<>();
@@ -60,7 +61,8 @@ public class BookController {
             String username = SecurityContextHolder.getContext().getAuthentication().getName();
             logger.info("Authenticated username = " + username);
             if (username != null && !username.isEmpty()) {
-                Reviewer currentUserReviewer = reviewerManager.findByUsername(username);
+                currentUserReviewer = reviewerManager.findByUsername(username);
+                if (currentUserReviewer != null ) {
                 logger.info("Authenticated reviewer id = " + currentUserReviewer.getReviewer_id());
                 marks = markManager.findAllWhereReviewerId(currentUserReviewer.getReviewer_id());
                 logger.info("Authenticated reviewers marks: " + marks);
@@ -68,15 +70,25 @@ public class BookController {
                     markedBooksIdsList.add(mark.getBook().getBook_id());
                 }
             }
+            }
         } else {
             logger.info("User is not authenticated");
         }
-
         ModelAndView model = new ModelAndView("index.html");
+        model.addObject("books", books);
+        if (currentUserReviewer != null ) {
+        
         model.addObject("books", books);
         model.addObject("committedMarksIds", markedBooksIdsList);
         model.addObject("committedMarks", marks);
         model.addObject("isUserAuthenticated", isUserAuthenticated);
+        
+        }else {
+        	
+            
+            isUserAuthenticated=false;
+            model.addObject("isUserAuthenticated", isUserAuthenticated);
+        }
         return model;
     }
 
