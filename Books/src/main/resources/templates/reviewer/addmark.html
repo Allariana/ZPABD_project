@@ -1,38 +1,38 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <html>
 <head>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
-	crossorigin="anonymous">
-<meta charset="utf-8">
-<title>add mark</title>
-<div th:replace="fragments/header.html :: header-css"/>
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+            crossorigin="anonymous">
+    <meta charset="utf-8">
+    <title>add mark</title>
+    <div th:replace="fragments/header.html :: header-css"/>
 </head>
 <body>
 <div th:replace="fragments/header.html :: header"/>
 <div class="container bg-light text-dark p-4">
-<h2>[[${#httpServletRequest.remoteUser}]], wystaw ocenę</h2>
+    <h2>[[${#httpServletRequest.remoteUser}]], wystaw ocenę</h2>
 
-<script>
-window.onload = function(){
-	const queryString = window.location.search;
-	console.log(queryString);
-	const urlParams = new URLSearchParams(queryString);
-	const bookId = urlParams.get('bookId')
-	console.log(bookId);
-	const u = toString("[[${#httpServletRequest.remoteUser}]]");
-    document.getElementById('bookIdinput').value = bookId;
-};
-</script>
+    <script>
+        window.onload = function () {
+            const queryString = window.location.search;
+            console.log(queryString);
+            const urlParams = new URLSearchParams(queryString);
+            const bookId = urlParams.get('bookId')
+            console.log(bookId);
+            const u = toString("[[${#httpServletRequest.remoteUser}]]");
+            document.getElementById('bookIdinput').value = bookId;
+        };
+    </script>
 
-<br>
-    <form action="/reviewer/addmark" id = "mark-inform" method="POST">
+    <br>
+    <form action="/reviewer/addmark" id="mark-inform" method="POST">
         <div class="row">
             <div class="col">
                 <label> Value </label>
@@ -44,7 +44,7 @@ window.onload = function(){
         </div>
         <br>
         <div class="vertical-center">
-            <input type ="submit" class="btn btn-primary" value="ADD">
+            <input type="submit" class="btn btn-primary" value="ADD">
             <a href="/" class="btn btn-info"> CANCEL </a>
         </div>
     </form>
