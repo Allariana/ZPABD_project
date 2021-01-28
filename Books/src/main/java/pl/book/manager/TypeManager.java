@@ -19,4 +19,12 @@ public class TypeManager {
     public Iterable<Type> findAll() {
         return typeRepository.findAll();
     }
+    
+    public Iterable<Type> findAllWhereTypeId(Long id) {
+        return typeRepository.findAllWhereTypeId(id);
+    }
+    
+	public Type findByName(String name) {
+		return typeRepository.findByName(name);
+	}
 }
