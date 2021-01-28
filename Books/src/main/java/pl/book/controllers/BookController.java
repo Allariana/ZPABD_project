@@ -27,76 +27,72 @@ import java.util.List;
 
 @Controller
 public class BookController {
-    @Autowired
-    private BookManager bookManager;
-    @Autowired
-    private BookRepository bookRepository;
-    @Autowired
-    private MarkManager markManager;
-    @Autowired
-    private ReviewerManager reviewerManager;
+	@Autowired
+	private BookManager bookManager;
+	@Autowired
+	private BookRepository bookRepository;
+	@Autowired
+	private MarkManager markManager;
+	@Autowired
+	private ReviewerManager reviewerManager;
 
-    Logger logger = LoggerFactory.getLogger(SpringBootApplication.class);
+	Logger logger = LoggerFactory.getLogger(SpringBootApplication.class);
 
-    @Autowired
-    public BookController(BookManager bookManager, BookRepository bookRepository) {
-        super();
-        this.bookManager = bookManager;
-        this.bookRepository = bookRepository;
-    }
+	@Autowired
+	public BookController(BookManager bookManager, BookRepository bookRepository) {
+		super();
+		this.bookManager = bookManager;
+		this.bookRepository = bookRepository;
+	}
 
-    @GetMapping("/all")
-    public Iterable<Book> getAll() {
-        return bookManager.findAll();
-    }
+	@GetMapping("/all")
+	public Iterable<Book> getAll() {
+		return bookManager.findAll();
+	}
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ModelAndView subjects(HttpServletRequest request) {
-    	Reviewer currentUserReviewer = null;
-        Iterable<Book> books = bookManager.findAll();
-        Iterable<Mark> marks = null;
-        List<Long> markedBooksIdsList = new ArrayList<>();
-        boolean isUserAuthenticated = checkIfUserIsAuthenticated();
-        if (isUserAuthenticated) {
-            String username = SecurityContextHolder.getContext().getAuthentication().getName();
-            logger.info("Authenticated username = " + username);
-            if (username != null && !username.isEmpty()) {
-                currentUserReviewer = reviewerManager.findByUsername(username);
-                if (currentUserReviewer != null ) {
-                logger.info("Authenticated reviewer id = " + currentUserReviewer.getReviewer_id());
-                marks = markManager.findAllWhereReviewerId(currentUserReviewer.getReviewer_id());
-                logger.info("Authenticated reviewers marks: " + marks);
-                for(Mark mark : marks) {
-                    markedBooksIdsList.add(mark.getBook().getBook_id());
-                }
-            }
-            }
-        } else {
-            logger.info("User is not authenticated");
-        }
-        ModelAndView model = new ModelAndView("index.html");
-        model.addObject("books", books);
-        if (currentUserReviewer != null ) {
-        
-        model.addObject("books", books);
-        model.addObject("committedMarksIds", markedBooksIdsList);
-        model.addObject("committedMarks", marks);
-        model.addObject("isUserAuthenticated", isUserAuthenticated);
-        
-        }else {
-        	
-            
-            isUserAuthenticated=false;
-            model.addObject("isUserAuthenticated", isUserAuthenticated);
-        }
-        return model;
-    }
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public ModelAndView subjects(HttpServletRequest request) {
+		Reviewer currentUserReviewer = null;
+		Iterable<Book> books = bookManager.findAll();
+		Iterable<Mark> marks = null;
+		List<Long> markedBooksIdsList = new ArrayList<>();
+		boolean isUserAuthenticated = checkIfUserIsAuthenticated();
+		boolean isAdminAuthenticated = checkIfUserIsAuthenticated();
+		if (isUserAuthenticated) {
+			String username = SecurityContextHolder.getContext().getAuthentication().getName();
+			logger.info("Authenticated username = " + username);
+			if (username != null && !username.isEmpty()) {
+				currentUserReviewer = reviewerManager.findByUsername(username);
+				if (currentUserReviewer != null) {
+					isAdminAuthenticated = false;
+					logger.info("Authenticated reviewer id = " + currentUserReviewer.getReviewer_id());
+					marks = markManager.findAllWhereReviewerId(currentUserReviewer.getReviewer_id());
+					logger.info("Authenticated reviewers marks: " + marks);
+					for (Mark mark : marks) {
+						markedBooksIdsList.add(mark.getBook().getBook_id());
+					}
+				} else
+					isUserAuthenticated = false;
+			}
+		} else {
+			logger.info("User is not authenticated");
+		}
+		ModelAndView model = new ModelAndView("index.html");
+		model.addObject("books", books);
 
-    boolean checkIfUserIsAuthenticated() {
-        return SecurityContextHolder.getContext().getAuthentication() != null &&
-                SecurityContextHolder.getContext().getAuthentication().isAuthenticated() &&
-                //when Anonymous Authentication is enabled
-                !(SecurityContextHolder.getContext().getAuthentication()
-                        instanceof AnonymousAuthenticationToken);
-    }
+		model.addObject("books", books);
+		model.addObject("committedMarksIds", markedBooksIdsList);
+		model.addObject("committedMarks", marks);
+		model.addObject("isUserAuthenticated", isUserAuthenticated);
+		model.addObject("isAdminAuthenticated", isAdminAuthenticated);
+
+		return model;
+	}
+
+	boolean checkIfUserIsAuthenticated() {
+		return SecurityContextHolder.getContext().getAuthentication() != null
+				&& SecurityContextHolder.getContext().getAuthentication().isAuthenticated() &&
+				// when Anonymous Authentication is enabled
+				!(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken);
+	}
 }
