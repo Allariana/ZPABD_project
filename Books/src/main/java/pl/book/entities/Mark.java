@@ -86,6 +86,14 @@ public class Mark {
 		this.book = book;
 	}
 
-
-
+	@Override
+	public String toString() {
+		return "Mark{" +
+				"id=" + id +
+				", value=" + value +
+				", date=" + date +
+				", reviewer=" + reviewer +
+				", book=" + book +
+				'}';
+	}
 }

@@ -23,4 +23,6 @@ public class MarkManager {
     public Iterable<Mark> findAllWhereBookId(Long bookId) {
         return markRepository.findAllWhereBookId(bookId);
     }
+
+    public Iterable<Mark> findAllWhereReviewerId(Long userId) { return markRepository.findAllWhereReviewerId(userId);}
 }

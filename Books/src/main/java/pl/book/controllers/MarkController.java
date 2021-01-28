@@ -1,6 +1,7 @@
 package pl.book.controllers;
 
 import java.util.Calendar;
+import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
@@ -55,19 +56,19 @@ public class MarkController {
 	@RequestMapping(value = "/marks", method = RequestMethod.GET)
 	public ModelAndView marks(HttpServletRequest request) {
 		Iterable<Mark> marks = markManager.findAllWhereBookId(Long.valueOf(request.getParameter("bookId")));
-		ModelAndView model = new ModelAndView("/marks.html");
+		ModelAndView model = new ModelAndView("marks.html");
 		model.addObject("marks", marks);
 		return model;
 	}
 
 	@RequestMapping(value = "/reviewer/addmark", method = RequestMethod.GET)
 	public ModelAndView addMarks(HttpServletRequest request) {
-		ModelAndView model = new ModelAndView("/reviewer/addmark.html");
+		ModelAndView model = new ModelAndView("reviewer/addmark.html");
 		return model;
 	}
 
 	@RequestMapping(value = "/reviewer/addmark", method = RequestMethod.POST)
-	public void addMarkConfirm(HttpServletRequest request) {
+	public String addMarkConfirm(HttpServletRequest request) {
 		String bookid = request.getParameter("bookId");
 		Double value = Double.parseDouble(request.getParameter("value"));
 		String username = request.getRemoteUser();
@@ -81,10 +82,21 @@ public class MarkController {
 		Book book = bookManager.findBookById(Long.valueOf(bookid));
 		mark.setBook(book);
 
+		deletePreviousMarks(reviewer, book);
+
 		markRepository.save(mark);
 		Double averageMark = bookManager.findAverageMark(Long.valueOf(bookid));
 		book.setAverageMark(averageMark);
 		bookRepository.save(book);
 
+		String redirectUrl = "/";
+		return "redirect:" + redirectUrl;
+	}
+
+	private void deletePreviousMarks(Reviewer reviewer, Book book) {
+		Iterable<Mark> previousMarks = markRepository.findAllByBookIdAndReviewerId(book.getBook_id(), reviewer.getReviewer_id());
+		for(Mark previousMark : previousMarks) {
+			markRepository.delete(previousMark);
+		}
 	}
 }
