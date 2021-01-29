@@ -11,16 +11,20 @@ import org.springframework.web.servlet.ModelAndView;
 
 import pl.book.entities.Author;
 import pl.book.manager.AuthorManager;
+import pl.book.repositories.AuthorRepository;
 
 @Controller
 public class AuthorController {
 	@Autowired
 	private AuthorManager authorManager;
+	@Autowired
+	private AuthorRepository authorRepository;
 	
 	@Autowired
-	public AuthorController(AuthorManager authorManager) {
+	public AuthorController(AuthorManager authorManager, AuthorRepository authorRepository) {
 		super();
 		this.authorManager = authorManager;
+		this.authorRepository = authorRepository;
 	}
 	
 	@GetMapping("/allAuthorsAPI")
@@ -35,4 +39,22 @@ public class AuthorController {
       model.addObject("authors", authors);
       return model;
   }
+  
+  @RequestMapping(value = "/admin/addAuthor", method = RequestMethod.GET)
+	public ModelAndView addMarks(HttpServletRequest request) {
+		ModelAndView model = new ModelAndView("/admin/addAuthor.html");
+		return model;
+	}
+
+	@RequestMapping(value = "/admin/addAuthor", method = RequestMethod.POST)
+	public void addMarkConfirm(HttpServletRequest request) {
+		String firstName = request.getParameter("first_name");
+		String lastName = request.getParameter("last_name");
+		
+		Author author = new Author();
+		author.setFirstName(firstName);
+		author.setLastName(lastName);
+		
+		authorRepository.save(author);
+	}
 }

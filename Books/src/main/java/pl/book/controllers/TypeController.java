@@ -13,16 +13,20 @@ import pl.book.entities.Book;
 import pl.book.entities.Type;
 import pl.book.manager.BookManager;
 import pl.book.manager.TypeManager;
+import pl.book.repositories.TypeRepository;
 
 @Controller
 public class TypeController {
 	@Autowired
 	private TypeManager typeManager;
+	@Autowired
+	private TypeRepository typeRepository;
 	
 	@Autowired
-	public TypeController(TypeManager typeManager) {
+	public TypeController(TypeManager typeManager, TypeRepository typeRepository) {
 		super();
 		this.typeManager = typeManager;
+		this.typeRepository = typeRepository;
 	}
 	
 	@GetMapping("/allTypesAPI")
@@ -37,4 +41,20 @@ public class TypeController {
       model.addObject("types", types);
       return model;
   }
+  
+  @RequestMapping(value = "/admin/addType", method = RequestMethod.GET)
+	public ModelAndView addType(HttpServletRequest request) {
+		ModelAndView model = new ModelAndView("/admin/addType.html");
+		return model;
+	}
+
+	@RequestMapping(value = "/admin/addType", method = RequestMethod.POST)
+	public void addTypeConfirm(HttpServletRequest request) {
+		String name = request.getParameter("type");
+		
+		Type type = new Type();
+		type.setName(name);
+		
+		typeRepository.save(type);
+}
 }
