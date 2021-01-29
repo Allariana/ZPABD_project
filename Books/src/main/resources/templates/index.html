@@ -34,7 +34,7 @@
         <tbody class="tableClass">
         <tr th:each="book: ${books}">
             <td th:text="${book.title}">title</td>
-            <td th:text="${book.author.LastName}">author</td>
+            <td th:text="${book.author.LastName} + ' ' +${book.author.FirstName}">author</td>
             <td th:text="${book.type.name}">gatunek</td>
             <td th:text="${book.averageMark}">średnia</td>
 
