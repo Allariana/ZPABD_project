@@ -12,21 +12,17 @@
 
 <div class="container bg-secondary text-light p-4">
     <form action="/admin/addBook" id="book-inform" method="POST">
-        <div class="row">
-            <div class="col">
-                <label> Imię autora </label>
-            </div>
-            <div class="col">
-                <input type="text" name="first_name">
-            </div>
-        </div>
 
         <div class="row">
             <div class="col">
                 <label> Nazwisko autora </label>
             </div>
             <div class="col">
-                <input type="text" name="last_name">
+                <select name="type">
+                    <tr th:each="author: ${authors}">
+                        <option name="author" th:text= "${author.LastName}">author</option>
+                    </tr>
+                </select>
             </div>
         </div>
 
@@ -44,8 +40,9 @@
             </div>
             <div class="col">
                 <select name="type">
-                    <option>Fantasy</option>
-                    <option>Thriller</option>
+                    <tr th:each="type: ${types}">
+                    <option name="type" th:text= "${type.name}">type</option>
+                    </tr>
                 </select>
             </div>
         </div>

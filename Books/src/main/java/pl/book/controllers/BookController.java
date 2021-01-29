@@ -17,12 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import pl.book.base.BaseController;
-import pl.book.entities.Book;
-import pl.book.entities.Mark;
-import pl.book.entities.Reviewer;
-import pl.book.manager.BookManager;
-import pl.book.manager.MarkManager;
-import pl.book.manager.ReviewerManager;
+import pl.book.entities.*;
+import pl.book.manager.*;
 import pl.book.repositories.BookRepository;
 
 import java.util.ArrayList;
@@ -33,19 +29,25 @@ public class BookController extends BaseController {
     @Autowired
     private BookManager bookManager;
     @Autowired
+    private TypeManager typeManager;
+    @Autowired
     private BookRepository bookRepository;
     @Autowired
     private MarkManager markManager;
     @Autowired
     private ReviewerManager reviewerManager;
+    @Autowired
+    private AuthorManager authorManager;
 
     Logger logger = LoggerFactory.getLogger(SpringBootApplication.class);
 
     @Autowired
-    public BookController(BookManager bookManager, BookRepository bookRepository) {
+    public BookController(BookManager bookManager,TypeManager typeManager, BookRepository bookRepository, AuthorManager authorManager) {
         super();
         this.bookManager = bookManager;
         this.bookRepository = bookRepository;
+        this.typeManager = typeManager;
+        this.authorManager = authorManager;
     }
 
     @GetMapping("/all")
@@ -54,7 +56,7 @@ public class BookController extends BaseController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ModelAndView subjects(HttpServletRequest request) {
+    public ModelAndView books(HttpServletRequest request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 //		authentication.getAuthorities();
         logger.info("Authenticated user has authorities: " + authentication.getAuthorities());
@@ -91,6 +93,30 @@ public class BookController extends BaseController {
         model.addObject("isAdminAuthenticated", isAdminAuthenticated);
 
         return model;
+    }
+    @RequestMapping(value = "/admin/addBook", method = RequestMethod.GET)
+    public ModelAndView addMarks(HttpServletRequest request) {
+        Iterable<Type> types = typeManager.findAll();
+        Iterable<Author> authors = authorManager.findAll();
+        ModelAndView model = new ModelAndView("/admin/addBook.html");
+        model.addObject("types", types);
+        model.addObject("authors", authors);
+        return model;
+    }
+
+    @RequestMapping(value = "/admin/addBook", method = RequestMethod.POST)
+    public void addBook(HttpServletRequest request) {
+        String authorName = request.getParameter("author");
+        String typeName = request.getParameter("type");
+        String title = request.getParameter("title");
+
+        //Author author = authorManager.findbyLastname(authorName);
+//        Type type = typeManager.findByName(typeName);
+//        Book book = new Book();
+//        book.setTitle(title);
+//        //book.setAuthor(author);
+//        book.setType(type);
+//        bookRepository.save(book);
     }
 
 }
