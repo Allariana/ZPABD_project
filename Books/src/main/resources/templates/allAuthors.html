@@ -31,6 +31,16 @@
         </tr>
         </tbody>
     </table>
+    <table class="table">
+        <tbody class="tableClass">
+        <tr>
+<!--            <div th:text="isAdmin = ${isAdmin}"/>-->
+            <div th:if="${isAdmin == 'true'}">
+                <td><a href="/">Dodaj autora</a></td>
+            </div>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>
