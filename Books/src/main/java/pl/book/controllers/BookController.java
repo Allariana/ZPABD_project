@@ -2,12 +2,10 @@ package pl.book.controllers;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.fasterxml.jackson.databind.ser.Serializers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -95,7 +93,7 @@ public class BookController extends BaseController {
         return model;
     }
     @RequestMapping(value = "/admin/addBook", method = RequestMethod.GET)
-    public ModelAndView addMarks(HttpServletRequest request) {
+    public ModelAndView getAuthorsTypes(HttpServletRequest request) {
         Iterable<Type> types = typeManager.findAll();
         Iterable<Author> authors = authorManager.findAll();
         ModelAndView model = new ModelAndView("/admin/addBook.html");
@@ -105,18 +103,26 @@ public class BookController extends BaseController {
     }
 
     @RequestMapping(value = "/admin/addBook", method = RequestMethod.POST)
-    public void addBook(HttpServletRequest request) {
+    public ModelAndView addBook(HttpServletRequest request) {
         String authorName = request.getParameter("author");
         String typeName = request.getParameter("type");
         String title = request.getParameter("title");
 
-        //Author author = authorManager.findbyLastname(authorName);
-//        Type type = typeManager.findByName(typeName);
-//        Book book = new Book();
-//        book.setTitle(title);
-//        //book.setAuthor(author);
-//        book.setType(type);
-//        bookRepository.save(book);
+        Author author = authorManager.findbySurname(authorName);
+        Type type = typeManager.findByName(typeName);
+        
+        Book book = new Book();
+        book.setTitle(title);
+        book.setAuthor(author);
+        book.setType(type);
+        bookRepository.save(book);
+//        getAuthorsTypes(request);
+        Iterable<Type> types = typeManager.findAll();
+        Iterable<Author> authors = authorManager.findAll();
+        ModelAndView model = new ModelAndView("/admin/addBook.html");
+        model.addObject("types", types);
+        model.addObject("authors", authors);
+        return model;
     }
 
 }

@@ -7,7 +7,7 @@ import pl.book.entities.Author;
 public interface AuthorRepository extends CrudRepository<Author, Long> {
 	@Query("SELECT a FROM Author a WHERE a.id = ?1")
 	Iterable<Author> findAllWhereAuthorId(Long id);
-	@Query("SELECT a FROM Author a WHERE a.LastName = ?1")
-	Author findbyLastname(String lastname);
+	@Query("SELECT a FROM Author a WHERE a.surname = ?1")
+	Author findbySurname(String surname);
 
 }

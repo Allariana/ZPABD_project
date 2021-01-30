@@ -29,5 +29,5 @@ public class AuthorManager {
         return authorRepository.findAllWhereAuthorId(id);
     }
 
-    public Author findbyLastname(String lastname){return authorRepository.findbyLastname(lastname);}
+    public Author findbySurname(String surname){return authorRepository.findbySurname(surname);}
 }

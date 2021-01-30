@@ -52,15 +52,15 @@ public class RunAtStart {
 	public void runAtStart() {
 		
 		Author author = new Author();
-		author.setLastName("Rowling");
+		author.setSurname("Rowling");
 		author.setFirstName("J.K.");
 		authorRepository.save(author);
 		Author author2 = new Author();
-		author2.setLastName("Hawkins");
+		author2.setSurname("Hawkins");
 		author2.setFirstName("Paula");
 		authorRepository.save(author2);
 		Author author3 = new Author();
-		author3.setLastName("Michaelides");
+		author3.setSurname("Michaelides");
 		author3.setFirstName("Alex");
 		authorRepository.save(author3);
 		

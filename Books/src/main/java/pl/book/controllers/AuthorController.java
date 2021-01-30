@@ -51,13 +51,13 @@ public class AuthorController extends BaseController {
 	}
 
 	@RequestMapping(value = "/admin/addAuthor", method = RequestMethod.POST)
-	public void addMarkConfirm(HttpServletRequest request) {
+	public void addAuthor(HttpServletRequest request) {
 		String firstName = request.getParameter("first_name");
 		String lastName = request.getParameter("last_name");
 		
 		Author author = new Author();
 		author.setFirstName(firstName);
-		author.setLastName(lastName);
+		author.setSurname(lastName);
 		
 		authorRepository.save(author);
 	}
