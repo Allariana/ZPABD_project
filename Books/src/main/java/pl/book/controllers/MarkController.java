@@ -1,8 +1,6 @@
 package pl.book.controllers;
 
 import java.util.Calendar;
-import java.util.List;
-import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import pl.book.entities.Book;
@@ -53,10 +50,10 @@ public class MarkController {
 		return markManager.findAll();
 	}
 
-	@RequestMapping(value = "/marks", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/marks", method = RequestMethod.GET)
 	public ModelAndView marks(HttpServletRequest request) {
 		Iterable<Mark> marks = markManager.findAllWhereBookId(Long.valueOf(request.getParameter("bookId")));
-		ModelAndView model = new ModelAndView("marks.html");
+		ModelAndView model = new ModelAndView("admin/marks.html");
 		model.addObject("marks", marks);
 		return model;
 	}

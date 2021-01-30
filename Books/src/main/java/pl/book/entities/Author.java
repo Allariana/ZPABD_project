@@ -2,11 +2,7 @@ package pl.book.entities;
 
 import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -16,7 +12,7 @@ public class Author {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	private String LastName;
+	private String surname;
 	private String FirstName;
 	
 	@JsonManagedReference
@@ -27,11 +23,11 @@ public class Author {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Author(Long id, String lastName, String firstName) {
+	public Author(Long id, String surname, String firstName) {
 		super();
 		this.id = id;
-		LastName = lastName;
-		FirstName = firstName;
+		this.surname = surname;
+		this.FirstName = firstName;
 	}
 	public Long getId() {
 		return id;
@@ -39,11 +35,11 @@ public class Author {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getLastName() {
-		return LastName;
+	public String getSurname() {
+		return surname;
 	}
-	public void setLastName(String lastName) {
-		LastName = lastName;
+	public void setSurname(String surname) {
+		this.surname = surname;
 	}
 	public String getFirstName() {
 		return FirstName;
@@ -59,7 +55,7 @@ public class Author {
 	}
 	@Override
 	public String toString() {
-		return "Author [id=" + id + ", LastName=" + LastName + ", FirstName=" + FirstName + "]";
+		return "Author [id=" + id + ", surname=" + surname + ", FirstName=" + FirstName + "]";
 	}
 	
 }

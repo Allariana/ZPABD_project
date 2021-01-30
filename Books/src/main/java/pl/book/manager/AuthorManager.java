@@ -28,4 +28,6 @@ public class AuthorManager {
     public Iterable<Author> findAllWhereBookId(Long id) {
         return authorRepository.findAllWhereAuthorId(id);
     }
+
+    public Author findbySurname(String surname){return authorRepository.findbySurname(surname);}
 }

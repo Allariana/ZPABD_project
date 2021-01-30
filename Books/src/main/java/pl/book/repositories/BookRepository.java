@@ -1,12 +1,9 @@
 package pl.book.repositories;
 
-import java.util.Optional;
-
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import pl.book.entities.Book;
-import pl.book.entities.Mark;
 
 public interface BookRepository extends CrudRepository<Book, Long>{
 
@@ -15,4 +12,7 @@ public interface BookRepository extends CrudRepository<Book, Long>{
 	
 	@Query("SELECT b FROM Book b WHERE b.book_id = ?1")
 	Book findBookById(Long bookId);
+
+	@Query("SELECT b FROM Book b order by b.averageMark DESC")
+	Iterable<Book> findBooksOrder();
 }

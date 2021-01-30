@@ -11,36 +11,30 @@
             integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
             crossorigin="anonymous">
     <meta charset="utf-8">
-    <title>Type</title>
+    <title>Oceny</title>
     <div th:replace="fragments/header.html :: header-css"/>
 </head>
 <body>
 <div th:replace="fragments/header.html :: header"/>
-<div class="container bg-light text-dark p-4">
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Nazwa</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="type: ${types}">
-            <td th:text="${type.name}"> Nazwa</td>
-
-        </tr>
-        </tbody>
-
-    </table>
-    <table class="table">
-        <tbody class="tableClass">
-        <tr>
-            <div th:if="${isAdmin == 'true'}">
-                <td><a href="http://localhost:8080/admin/addType">Dodaj gatunek</a></td>
-            </div>
-        </tr>
-        </tbody>
-    </table>
-
+<div class="container bg-light text-dark p-4 ">
+<table class="table">
+    <thead>
+    <tr>
+        <th>Tytuł</th>
+        <th>Recenzent</th>
+        <th>Data</th>
+        <th>ocena</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="mark: ${marks}">
+        <td th:text="${mark.book.title}"> title</td>
+        <td th:text="${mark.reviewer.LastName}"> reviewer</td>
+        <td th:text="${mark.date}"> date</td>
+        <td th:text="${mark.value}"> rating</td>
+    </tr>
+    </tbody>
+</table>
 </div>
 </body>
 </html>

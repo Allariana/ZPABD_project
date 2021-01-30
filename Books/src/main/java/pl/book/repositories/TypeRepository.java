@@ -12,4 +12,5 @@ public interface TypeRepository extends CrudRepository<Type, Long> {
 	
 	@Query("SELECT t FROM Type t WHERE t.name = ?1")
 	Type findByName(String name);
+
 }
