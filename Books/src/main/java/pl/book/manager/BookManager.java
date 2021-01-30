@@ -1,12 +1,9 @@
 package pl.book.manager;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import pl.book.entities.Book;
-import pl.book.entities.Mark;
 import pl.book.repositories.BookRepository;
 
 @Service
@@ -28,10 +25,12 @@ public class BookManager {
     }
     
     public Book findBookById(Long bookId) {
-    	System.out.println("idik_ksiazki " + bookId);
+
         return bookRepository.findBookById(bookId);
     }
 
-
+    public Iterable<Book> findBooksOrder(){
+        return bookRepository.findBooksOrder();
+    }
 
 }

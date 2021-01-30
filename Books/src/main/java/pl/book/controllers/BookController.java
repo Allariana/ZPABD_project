@@ -56,10 +56,11 @@ public class BookController extends BaseController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView books(HttpServletRequest request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//		authentication.getAuthorities();
+
         logger.info("Authenticated user has authorities: " + authentication.getAuthorities());
         Reviewer currentUserReviewer = null;
-        Iterable<Book> books = bookManager.findAll();
+
+        Iterable<Book> books = bookManager.findBooksOrder();
         Iterable<Mark> marks = null;
         List<Long> markedBooksIdsList = new ArrayList<>();
         boolean isUserAuthenticated = checkIfUserIsAuthenticated();
