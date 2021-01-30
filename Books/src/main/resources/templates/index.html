@@ -29,6 +29,9 @@
             <div th:if="${isUserAuthenticated == true}">
                 <th>Twoja ocena</th>
             </div>
+            <div th:if="${isAdminAuthenticated == true}">
+                <th>Wszystkie oceny</th>
+            </div>
         </tr>
         </thead>
         <tbody class="tableClass">
@@ -58,21 +61,27 @@
                     </div>
                 </td>
             </div>
+            <div th:if="${isAdminAuthenticated == true}">
+                <td><a
+                        th:href="'http://localhost:8080/admin/marks?bookId='+${book.book_id}">Lista ocen tej książki</a></td>
+            </div>
 
         </tr>
         </tbody>
     </table>
     <table class="table">
-        <tbody class="tableClass">
+    <div th:if="${isAdminAuthenticated == true}">
         <tr>
-            <div th:if="${isAdminAuthenticated == true}">
                 <td><a href="http://localhost:8080/admin/addBook">Dodaj książkę</a></td>
-                <td><a href="http://localhost:8080/admin/allReviewers">Oceniający</a></td>
-
-            </div>
         </tr>
-        </tbody>
+        <tr>
+                <td><a href="http://localhost:8080/admin/allReviewers">Lista recenzentów</a></td>
+        </tr>
+    </div>
     </table>
+    <div th:if="${isAdminAuthenticated == false} and ${isUserAuthenticated == false}">
+    <h6>*Książki mogą być oceniane tylko przez zalogowanych użytkowników</h6>
+    </div>
 </div>
 </body>
 </html>

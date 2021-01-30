@@ -53,10 +53,10 @@ public class MarkController {
 		return markManager.findAll();
 	}
 
-	@RequestMapping(value = "/marks", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/marks", method = RequestMethod.GET)
 	public ModelAndView marks(HttpServletRequest request) {
 		Iterable<Mark> marks = markManager.findAllWhereBookId(Long.valueOf(request.getParameter("bookId")));
-		ModelAndView model = new ModelAndView("marks.html");
+		ModelAndView model = new ModelAndView("admin/marks.html");
 		model.addObject("marks", marks);
 		return model;
 	}

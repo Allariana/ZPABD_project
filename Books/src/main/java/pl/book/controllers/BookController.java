@@ -110,13 +110,13 @@ public class BookController extends BaseController {
 
         Author author = authorManager.findbySurname(authorName);
         Type type = typeManager.findByName(typeName);
-        
+
         Book book = new Book();
         book.setTitle(title);
         book.setAuthor(author);
         book.setType(type);
         bookRepository.save(book);
-//        getAuthorsTypes(request);
+
         Iterable<Type> types = typeManager.findAll();
         Iterable<Author> authors = authorManager.findAll();
         ModelAndView model = new ModelAndView("/admin/addBook.html");
