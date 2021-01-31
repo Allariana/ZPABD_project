@@ -21,7 +21,8 @@ public class BookManager {
     }
     
     public Double findAverageMark(Long book_id) {
-        return bookRepository.findAverageMark(book_id);
+
+        return round(bookRepository.findAverageMark(book_id),2);
     }
     
     public Book findBookById(Long bookId) {
@@ -31,6 +32,11 @@ public class BookManager {
 
     public Iterable<Book> findBooksOrder(){
         return bookRepository.findBooksOrder();
+    }
+    
+    private static double round (double value, int precision) {
+        int scale = (int) Math.pow(10, precision);
+        return (double) Math.round(value * scale) / scale;
     }
 
 }

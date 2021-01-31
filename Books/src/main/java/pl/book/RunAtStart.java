@@ -1,14 +1,10 @@
 package pl.book;
 
-
 import java.util.Calendar;
 
 import javax.annotation.PostConstruct;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Component;
 
 import pl.book.entities.Author;
@@ -22,7 +18,6 @@ import pl.book.repositories.BookRepository;
 import pl.book.repositories.MarkRepository;
 import pl.book.repositories.ReviewerRepository;
 import pl.book.repositories.TypeRepository;
-
 
 @Component
 public class RunAtStart {
@@ -45,7 +40,6 @@ public class RunAtStart {
 		this.markRepository	= markRepository;
 		this.reviewerRepository = reviewerRepository;
 		this.bookManager = bookManager;
-
 	}
 
 	@PostConstruct
@@ -118,16 +112,16 @@ public class RunAtStart {
 		mark.setBook(book);
 		markRepository.save(mark);
 		Mark mark2 = new Mark();
-		mark2.setValue(4.0);
+		mark2.setValue(3.5);
 		mark2.setDate(new java.sql.Date(Calendar.getInstance().getTime().getTime()));
 		mark2.setReviewer(reviewer2);
 		mark2.setBook(book);
 		markRepository.save(mark2);
 		Mark mark3 = new Mark();
-		mark3.setValue(5.0);
+		mark3.setValue(1.5);
 		mark3.setDate(new java.sql.Date(Calendar.getInstance().getTime().getTime()));
-		mark3.setReviewer(reviewer);
-		mark3.setBook(book2);
+		mark3.setReviewer(reviewer3);
+		mark3.setBook(book);
 		markRepository.save(mark3);
 		Mark mark4 = new Mark();
 		mark4.setValue(4.5);
@@ -147,6 +141,12 @@ public class RunAtStart {
 		mark6.setReviewer(reviewer3);
 		mark6.setBook(book4);
 		markRepository.save(mark6);
+		Mark mark7 = new Mark();
+		mark7.setValue(5.0);
+		mark7.setDate(new java.sql.Date(Calendar.getInstance().getTime().getTime()));
+		mark7.setReviewer(reviewer);
+		mark7.setBook(book2);
+		markRepository.save(mark7);
 		
 		for(Book books: bookManager.findAll()) {
 			Double averageMark = bookManager.findAverageMark(books.getBook_id());

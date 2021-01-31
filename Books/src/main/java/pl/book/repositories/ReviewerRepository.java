@@ -1,11 +1,8 @@
 package pl.book.repositories;
 
-import java.util.Optional;
-
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-import pl.book.entities.Mark;
 import pl.book.entities.Reviewer;
 
 public interface ReviewerRepository extends CrudRepository<Reviewer, Long> {
