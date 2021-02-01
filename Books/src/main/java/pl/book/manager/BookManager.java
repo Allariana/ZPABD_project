@@ -33,7 +33,7 @@ public class BookManager {
     public Iterable<Book> findBooksOrder(){
         return bookRepository.findBooksOrder();
     }
-    
+
     private static double round (double value, int precision) {
         int scale = (int) Math.pow(10, precision);
         return (double) Math.round(value * scale) / scale;
